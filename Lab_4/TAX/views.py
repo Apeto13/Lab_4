@@ -9,5 +9,13 @@ def index(request):
 
 
 def anyNumber(request, number):
-    numberTaxed = int(number) * tax_rate
+    try:
+        number = int(number)
+        numberTaxed = int(number) * tax_rate
+    except ValueError:
+        numberTaxed = 0
     return HttpResponse(f"your number is {number} and after tax is {numberTaxed}")
+
+
+def taxRate(request):
+    return render(request, 'TAX/taxRate.html', {'tax_rate': round((tax_rate-1)*100)})
